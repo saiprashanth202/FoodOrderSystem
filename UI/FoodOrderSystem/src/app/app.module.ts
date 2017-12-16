@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     component :SignupComponent
   },
   {
-    path: 'additems',
+    path: 'items',
     component :ItemsComponent
   }
   
