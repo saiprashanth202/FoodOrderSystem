@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ItemsComponent } from './items/items.component';
+import { ProfileService } from './profile.service';
 
 
 const appRoutes: Routes = [
@@ -79,7 +80,9 @@ const appRoutes: Routes = [
     BrowserModule
   ],
   
-  providers: [],
+  providers: [
+    ProfileService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
