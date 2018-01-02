@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
-
+import { ItemuploadService } from '../itemupload.service';
 
 export class Items{
   constructor(public itemname:string,public price:string,public type:string,public file:File,public description:string){}
@@ -24,6 +24,10 @@ export class Items{
 
 
 export class AdminHomeComponent implements OnInit {
+  statusCode: number;
+  requestProcessing = false; 
+  profileIdToUpdate = null;
+  processValidation = false;
 
 itemForm=new FormGroup({itemname:new FormControl('',Validators.required),
 price:new FormControl('',Validators.required),
@@ -31,8 +35,8 @@ description:new FormControl('',Validators.required),
 file:new FormControl('',Validators.required),
 type:new FormControl('',Validators.required)
 })
-constructor(private router: Router) { }
 
+constructor(private router:Router,private itemService:ItemuploadService) { }
 logout(){
 this.router.navigate(['home']);
 
@@ -48,14 +52,31 @@ let description=this.itemForm.get('description').value;
 let item=new Items(itemname,type,description,file,price);
 alert(item);
 console.log(item);
+
+
+this.itemService.itemUpload(item).subscribe( successCode=>{
+  this.statusCode=successCode
+  if(this.statusCode==201)
+  {
+    this.router.navigate (['signup']); 
+  
+  }
+},
+errorCode => this.statusCode = errorCode)
   
 }
+
 
 fileEvent(event){
   this.selectedFiles=event.target.files;
 
 }
+
+
   ngOnInit() {
   }
+
+
+  
 
 }

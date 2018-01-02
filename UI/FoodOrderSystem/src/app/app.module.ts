@@ -16,7 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ItemsComponent } from './items/items.component';
 import { ProfileService } from './profile.service';
-
+import { ItemuploadService } from './itemupload.service';
 
 const appRoutes: Routes = [
   { 
@@ -81,7 +81,8 @@ const appRoutes: Routes = [
   ],
   
   providers: [
-    ProfileService
+    ProfileService,
+    ItemuploadService
   ],
   bootstrap: [AppComponent]
 })

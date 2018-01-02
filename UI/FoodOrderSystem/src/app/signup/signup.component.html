@@ -31,50 +31,96 @@
     <h1>Signup to Account</h1>
   <br/>
   <br/>
-    <form class="form-horizontal"  [formGroup]="profileForm" (ngSubmit)="onprofileFormSubmit()" name="profileForm">
+    <form class="form-horizontal"  [formGroup]="profileForm" (ngSubmit)="onprofileFormSubmit()" name="profileForm" autocomplete="off">
+      
+    
+        <div *ngIf="statusCode; else processing">
+          <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+            <h4><span class="auth-link"></span> Profile added successfully.</h4>
+           
+          </div>
+          <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+           Profile already exists.
+          </div>
+          <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+           Profile updated successfully.
+          </div>
+          <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+           Profile deleted successfully.
+          </div>
+          <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+             Internal Server Error.
+          </div>								
+          </div>
+       
+          <br>
+      
       <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+        <label for="username" class="col-sm-2 control-label">Username</label>
 
         <div class="col-sm-10">
-          <input type="text"  name="username" formControlName="username"  ng-model="username"   class="form-control" id="username" placeholder="username">
+          <input type="text"  name="username" formControlName="username"    class="form-control" id="username" placeholder="username">
         </div>
+        <div [hidden]="profileForm.controls['username'].valid || profileForm.controls['username'].pristine"
+									class="alert alert-danger"> Username is not valid.</div>
+							
       </div>
       <div class="form-group">
         <label for="inputPassword3"   class="col-sm-2 control-label">Password</label>
 
         <div class="col-sm-10">
-          <input type="password"  name="password" formControlName="password"  ng-model="password"  class="form-control" id="password" placeholder="Password">
+          <input type="password"  name="password" formControlName="password"   class="form-control" id="password" placeholder="Password">
         </div>
+        <div [hidden]="profileForm.controls['password'].valid || profileForm.controls['password'].pristine"
+									class="alert alert-danger"> Enter password</div>
+							
       </div>
 
       <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">Confirm Password</label>
   
           <div class="col-sm-10">
-            <input type="password" name="cpassword" formControlName="cpassword" ng-model="cpassword"  class="form-control" id="cpassword" placeholder="confirm Password">
+            <input type="password" name="cpassword" formControlName="cpassword"  ng-model="cpassword"  class="form-control" id="cpassword" placeholder="confirm Password">
           </div>
+
+          <div *ngIf="profileForm.controls['password'].value!=profileForm.controls['cpassword'].value"
+          class="alert alert-danger"> Password not matches</div>
+    
         </div>
+
+       
+
+
+
        
           <div class="form-group">
               <label for="inputPassword3" class="col-sm-2 control-label">Mobile number</label>
       
               <div class="col-sm-10">
-                <input type="text" name="mobilenumber" class="form-control"   ng-model="mobilenumber"  formControlName="mobilenumber" id="mobilenumber" placeholder="mobilenumber">
+                <input type="text" name="mobilenumber" class="form-control"   formControlName="mobilenumber" id="mobilenumber" placeholder="mobilenumber">
               </div>
+              <div [hidden]="profileForm.controls['mobilenumber'].valid || profileForm.controls['mobilenumber'].pristine"
+              class="alert alert-danger"> Enter valid mobile number</div>
+
             </div>
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
         
                 <div class="col-sm-10">
-                  <input type="email" name="email" class="form-control" ng-model="email" formControlName="email" id="email" placeholder="email">
+                  <input type="email" name="email" class="form-control"  formControlName="email" id="email" placeholder="email">
                 </div>
+
+                <div [hidden]="profileForm.controls['email'].valid || profileForm.controls['email'].pristine"
+              class="alert alert-danger"> Enter valid email</div>
               </div>
               <div class="form-group">
                 <label for="address" class="col-sm-2 control-label">Address Details</label>
         
                 <div class="col-sm-10">
-                  <input type="text" name="location" class="form-control" ng-model="location" formControlName="location" id="location" placeholder="location">
+                  <input type="text" name="location" class="form-control"  formControlName="location" id="location" placeholder="location">
                 </div>
+                <div [hidden]="profileForm.controls['location'].valid || profileForm.controls['location'].pristine"
+              class="alert alert-danger"> Enter address</div>
               </div>
 
       <br/>

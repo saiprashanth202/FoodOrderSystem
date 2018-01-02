@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import {  Profile  } from './signup/signup.component';
+import { Items } from './admin-home/admin-home.component';
 import { Observable } from 'rxjs';
 import {environment } from '../environments/environment';
 
 @Injectable()
-export class ProfileService {
-  userUrl = "http://localhost:8080/api/users";
+export class ItemuploadService {
+  userUrl = "http://localhost:8080/api/Items";
   constructor(private http: Http) {}
 
-  registerUser(user: Profile):Observable<number> {
+  itemUpload(item:  Items):Observable<number> {
     let userHeaders = new Headers({ 'Content-Type': 'application/json' });
+
       let options = new RequestOptions({ headers: userHeaders });
-      return this.http.post(this.userUrl ,user, options)
+      return this.http.post(this.userUrl , item, options)
              .map(success => success.status);
           
   }
@@ -21,3 +22,5 @@ export class ProfileService {
 		return Observable.throw(error.status); 
     }
 }
+
+

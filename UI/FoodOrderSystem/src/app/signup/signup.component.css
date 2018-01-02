@@ -36,3 +36,9 @@ span {
 .auth-link{
     color: chartreuse;
 }
+
+.alert-danger {
+    color: chartreuse;
+    background-color: black;
+    border-color: lightskyblue;
+}
